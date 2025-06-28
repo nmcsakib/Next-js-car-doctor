@@ -28,9 +28,9 @@ const Navbar = () => {
 
             {/* action buttons */}
             <div className="items-center gap-[10px] flex">
-                <button
+                <Link href={"/login"}
                     className="py-[10px] text-[1rem] px-[16px] rounded-md capitalize border border-[#ffa365] hover:bg-amber-500 cursor-pointer transition-all duration-300 sm:flex hidden"> Appointment
-                </button>
+                </Link>
                
 
                 <CiMenuFries

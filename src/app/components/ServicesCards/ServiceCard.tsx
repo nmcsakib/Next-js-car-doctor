@@ -24,7 +24,7 @@ const ServiceCard = ({ card }: CardProp) => {
                 <Image
                     className='rounded-xl'
                     height={500}
-                    width={300}
+                    width={500}
                     src={card?.img}
                     alt={card?.title} />
             </figure>
