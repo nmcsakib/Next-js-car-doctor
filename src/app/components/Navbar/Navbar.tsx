@@ -1,10 +1,15 @@
-// react icons
+"use client"
 import {IoIosSearch} from "react-icons/io";
 import {CiMenuFries} from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
+
+
+        const {data: session, status } = useSession();
+        console.log('session', session);
     // const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
     const NavMenu = ({title}: {title: string}) =>  <Link href={`/${title}`} className="before:w-0 hover:before:w-full before:bg-amber-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-amber-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">{title}</Link>;
     const SmallNavMenu = ({title}: {title: string}) =>  <Link href={`/${title}`} className="before:w-0 hover:before:w-full before:bg-amber-500 before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-amber-500 transition-all duration-300 before:left-0 cursor-pointer capitalize">{title}</Link>;
@@ -28,7 +33,14 @@ const Navbar = () => {
 
             {/* action buttons */}
             <div className="items-center gap-[10px] flex">
-                <Link href={"/login"}
+               {
+                status === "authenticated" ?  <button onClick={() => signOut()}
+                    className="py-[10px] text-[1rem] px-[16px] rounded-md capitalize border border-[#ffa365] hover:bg-amber-500 cursor-pointer transition-all duration-300 sm:flex hidden"> Log Out
+                </button> :  <Link href={"/login"}
+                    className="py-[10px] text-[1rem] px-[16px] rounded-md capitalize border hover:bg-transparent hover:border-[#ffa365] bg-amber-500 cursor-pointer transition-all duration-300 sm:flex hidden"> Login
+                </Link>
+               }
+                <Link href={"/"}
                     className="py-[10px] text-[1rem] px-[16px] rounded-md capitalize border border-[#ffa365] hover:bg-amber-500 cursor-pointer transition-all duration-300 sm:flex hidden"> Appointment
                 </Link>
                

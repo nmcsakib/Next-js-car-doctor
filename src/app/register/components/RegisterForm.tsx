@@ -1,6 +1,7 @@
 "use client"
 
-import { registerUser } from "@/app/actions/auth/regesterUser";
+import { registerUser } from "@/app/actions/auth/registerUser";
+import { redirect } from "next/navigation";
 
 const LoginForm = () => {
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
@@ -9,7 +10,12 @@ const LoginForm = () => {
         const name = new FormData(form).get("name") as string;
         const email = new FormData(form).get("email") as string;
         const password = new FormData(form).get("password") as string;
-        registerUser({name, email, password})
+        registerUser({name, email, password}).then(res => {
+          console.log(res.success)
+          if(res.success) return redirect('/')
+        })
+        
+        
                 
     }
     return (
@@ -71,9 +77,9 @@ const LoginForm = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="cursor-pointer flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>

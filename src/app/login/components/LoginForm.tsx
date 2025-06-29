@@ -1,13 +1,24 @@
 "use client"
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const LoginForm = () => {
+  const router = useRouter();
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const form = e.currentTarget;
         const email = new FormData(form).get("email") as string;
         const password = new FormData(form).get("password") as string;
-    }
+      try{
+        const response = await signIn("credentials", {email, password, redirect: false})
+        if(response?.ok){
+          router.push('/')
+        }
+      }catch(error){
+        console.log(error);
+      }
+      }
     return (
            <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -52,7 +63,7 @@ const LoginForm = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="cursor-pointer flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
